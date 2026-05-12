@@ -1,0 +1,239 @@
+{
+  "datasets": [
+    {
+      "name": "bc76577b",
+      "displayName": "Gold EV Infrastructure Gap",
+      "queryLines": [
+        "-- drop table if exists ev_spark.gold.gold_ev_infrastructure_gap\n",
+        "select * from ev_spark.gold.gold_ev_infrastructure_gap"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "2944a2ec",
+      "displayName": "EV Infrastructure Gap Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "d2a36edc",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bc76577b",
+                  "fields": [
+                    {
+                      "name": "gap_priority",
+                      "expression": "`gap_priority`"
+                    },
+                    {
+                      "name": "Latitude",
+                      "expression": "`Latitude`"
+                    },
+                    {
+                      "name": "Longitude",
+                      "expression": "`Longitude`"
+                    },
+                    {
+                      "name": "ev_count",
+                      "expression": "`ev_count`"
+                    },
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "title": "Map",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "widgetType": "symbol-map",
+              "encodings": {
+                "coordinates": {
+                  "latitude": {
+                    "fieldName": "Latitude"
+                  },
+                  "longitude": {
+                    "fieldName": "Longitude"
+                  }
+                },
+                "color": {
+                  "fieldName": "gap_priority",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "High",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 4
+                        }
+                      },
+                      {
+                        "value": "Low",
+                        "color": "#00A972"
+                      },
+                      {
+                        "value": "Medium",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 2
+                        }
+                      }
+                    ]
+                  }
+                },
+                "extra": [
+                  {
+                    "fieldName": "ev_count"
+                  },
+                  {
+                    "fieldName": "city"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 10,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "c1444b4b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bc76577b",
+                  "fields": [
+                    {
+                      "name": "gap_priority",
+                      "expression": "`gap_priority`"
+                    },
+                    {
+                      "name": "province",
+                      "expression": "`province`"
+                    },
+                    {
+                      "name": "sum(ev_count)",
+                      "expression": "SUM(`ev_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Chart"
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "province",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(ev_count)",
+                  "axis": {
+                    "title": "Total EVs"
+                  },
+                  "displayName": "Total EVs",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "gap_priority",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Low",
+                        "Medium",
+                        "High"
+                      ]
+                    },
+                    "mappings": [
+                      {
+                        "value": "High",
+                        "color": "#FF3621"
+                      },
+                      {
+                        "value": "Low",
+                        "color": "#00A972"
+                      },
+                      {
+                        "value": "Medium",
+                        "color": "#FFAB00"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 10,
+            "y": 1,
+            "width": 2,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "514fc4aa",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## <span style=\"text-align:center;display:block;\">**EV Infrastructure Gap Analysis**</span>"
+              ],
+              "verticalAlign": "VERTICAL_ALIGN_CENTER"
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#9E96DA"
+              },
+              "widgetBorderColor": {
+                "light": "#111010"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
